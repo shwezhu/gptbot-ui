@@ -22,7 +22,7 @@ export default function InputBar() {
     }
 
     return (
-        <div className={'flex flex-row my-1.5'}>
+        <div className={'flex flex-row my-1.5 xl:mb-4 xl:mt-2'}>
             <button
                 className={'h-12 mx-1 xl:mx-2 px-2 rounded-2xl bg-black text-amber-50'}
                 onClick={handleButtonClick}>
@@ -40,7 +40,7 @@ export default function InputBar() {
                     inputRef.current.style.height = `${inputRef.current.scrollHeight}px`
                 }}
                 onKeyDown={handleKeyDown}
-                placeholder="说点什么吧..."
+                placeholder="问点什么吧..."
                 rows="1"
             >
             </textarea>
