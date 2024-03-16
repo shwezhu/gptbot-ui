@@ -5,17 +5,17 @@ export default function Dialog() {
         {
             role: 'bot',
             text: 'Hello, I am a bot.',
-            time: '2021-09-01T12:00:00'
+            time: new Date().getTime()
         },
         {
             role: 'user',
             text: 'Hello, I am a user.',
-            time: '2021-09-01T12:01:00'
+            time: new Date().getTime()
         }
     ]
 
     return (
-        <div className={'flex flex-col w-full flex-grow'}>
+        <div className={'flex flex-col w-full flex-grow pt-4'}>
             {
                 message.map((m, i) => {
                     return (
