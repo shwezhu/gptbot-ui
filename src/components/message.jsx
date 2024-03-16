@@ -1,19 +1,18 @@
 import {formatTimestamp} from "../utils.js";
 
-export default function Message({role, text, time}) {
-    const messageClass = role === 'bot' ?
+export default function Message({message}) {
+    const messageClass = message.role ?
         'mr-auto mb-4 bg-cyan-100 text-black' : 'ml-auto bg-blue-400 text-white'
-    const timePos = role === 'bot' ? 'order-2' : 'order-1'
-    const rolePos = role === 'bot' ? 'order-1 mr-5' : 'order-2 ml-5'
-    const sentTime = formatTimestamp(time)
+    let sentTime = ''
+    if (message.time) {
+        sentTime = formatTimestamp(message.time)
+    }
 
     return (
-        <div className={`px-2 py-2 rounded-xl ${messageClass}`} >
-            <div className={'flex flex-row items-center border-2'}>
-                <span className={ `text-xl leading-normal ${rolePos}`}>{role}</span>
-                <span className={`text-base leading-normal  ${timePos}`}>{sentTime}</span>
-            </div>
-            <p>{text}</p>
+        <div className={`px-2 py-2 mb-4 rounded-xl ${messageClass}`}>
+            <strong>{message.role ? `${message.role}: ` : null}</strong>
+            {message.text}
+            {sentTime ? <div className={`text-sm text-end mt-2`}> {sentTime} </div> : null}
         </div>
     )
 }
