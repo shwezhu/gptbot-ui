@@ -1,0 +1,14 @@
+.menu {
+    width: fit-content;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.submenu {
+    display: none;
+}
+
+.menu li:hover .submenu {
+    display: block;
+}

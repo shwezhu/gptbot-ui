@@ -1,4 +1,4 @@
-import {formatTimestamp} from "../utils.js";
+import {formatTimestamp} from "../utils/utils.js";
 
 export default function Message({message}) {
     const messageClass = message.role ?
