@@ -37,7 +37,7 @@ export default function Dialog() {
     ]
 
     return (
-        <div className={'flex flex-col w-full pt-4 flex-grow h-0 overflow-auto'}>
+        <div className={'flex flex-col w-full flex-grow h-0 overflow-auto px-1'}>
             {
                 message.map((m, i) => {
                     return (
