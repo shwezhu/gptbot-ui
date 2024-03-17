@@ -5,10 +5,13 @@
 }
 
 .submenu {
+    position: absolute;
+    z-index: 99;
     display: none;
 }
 
 .submenu li {
+    z-index: inherit;
     margin-top: 16px;
 }
 
