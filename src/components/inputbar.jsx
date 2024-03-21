@@ -25,6 +25,7 @@ export default function InputBar({onSend, onClear}) {
         }
 
         onSend(inputRef.current.value);
+        inputRef.current.value = '';
     }
 
     return (
