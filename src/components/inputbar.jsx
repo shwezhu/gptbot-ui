@@ -1,8 +1,9 @@
 import {useRef, useState} from "react";
 
-export default function InputBar() {
+export default function InputBar({onSend, onClear}) {
     const [text, setText] = useState('');
-    const inputRef = useRef(null)
+    const inputRef = useRef(null);
+
 
     function handleKeyDown(e) {
         // Shift + Enter should not submit the form.
@@ -18,14 +19,19 @@ export default function InputBar() {
     }
 
     function handleButtonClick() {
-        console.log(inputRef.current.value)
+        if (localStorage.getItem('token') == null) {
+            alert("请先设置暗号喵~");
+            return;
+        }
+
+        onSend(inputRef.current.value);
     }
 
     return (
         <div className={'flex flex-row my-1.5 xl:mb-4 xl:mt-2'}>
             <button
                 className={'h-12 mx-1 xl:mx-2 px-2 rounded-2xl bg-black text-amber-50'}
-                onClick={handleButtonClick}>
+                onClick={onClear}>
                 Clear
             </button>
             <textarea

@@ -9,7 +9,7 @@ export default function Home() {
         <div className={'flex flex-col h-dvh w-full'}>
             <Background/>
             <Navigator/>
-            <ChatWindow/>
+            <ChatWindow fetchPath={'https://raven1132.com:2096/api/chat'}/>
             <Footer/>
         </div>
     )

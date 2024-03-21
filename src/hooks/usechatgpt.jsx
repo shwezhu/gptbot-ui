@@ -1,10 +1,8 @@
 import {useRef, useState} from 'react';
-import {message} from "antd";
 import {getSystemInstruction, trimMessage} from "../functions/chat_message.jsx";
 import {getChatHistory, saveChatHistory} from "../functions/chat_history.jsx";
 
-export const useChatGPT = (props) => {
-    const { fetchPath } = props;
+export const useChatGPT = ({ fetchPath }) => {
     const [messages, setMessages] = useState([]); // for real request
     const [chatHistory, setChatHistory] = useState([]); // for display
     const [loading, setLoading] = useState(false);
@@ -39,10 +37,7 @@ export const useChatGPT = (props) => {
             if (!response.ok) {
                 // remove the last message
                 setMessages((messages) => messages.slice(0, -1));
-                message.error({
-                    content: "获取信息失败, 请联系截图主人喵~: " + data.error,
-                    duration: 5,
-                });
+                alert("获取信息失败, 请截图反馈: " + data.error);
                 return;
             }
 
@@ -56,27 +51,27 @@ export const useChatGPT = (props) => {
                 return
             }
 
-            message.error("获取信息失败, 请联系截图主人喵~: " + e);
+            alert("获取信息失败, 请截图反馈: " + e);
         }
     }
 
-    const onSend = async (message, botRole=null) => {
-        updateChatHistory('user', message);
+    const onSend = async (messageContent, botRole=null) => {
+        updateChatHistory('user', messageContent);
 
         if (botRole !== 'translator') {
-            updateMessages('user', message);
+            updateMessages('user', messageContent);
         }
 
         let newMessages;
         if (botRole) {
             const instruction = getSystemInstruction(botRole);
             if (botRole === 'translator') {
-                newMessages = [instruction, { role: 'user', content: message }];
+                newMessages = [instruction, { role: 'user', content: messageContent }];
             } else {
-                newMessages = [instruction, ...messages, { role: 'user', content: message }];
+                newMessages = [instruction, ...messages, { role: 'user', content: messageContent }];
             }
         } else {
-            newMessages = [...messages, { role: 'user', content: message }];
+            newMessages = [...messages, { role: 'user', content: messageContent }];
         }
 
         const res = await fetchMessage(newMessages).then();
@@ -92,10 +87,7 @@ export const useChatGPT = (props) => {
 
     const onClear = () => {
         setMessages([]);
-        message.info({
-            content: "猫猫已经忘掉了之前的一切~",
-            duration: 3,
-        }).then();
+        alert("聊天上下文已清空")
     };
 
     const onStop = () => {
@@ -105,12 +97,13 @@ export const useChatGPT = (props) => {
         }
     }
 
-    const updateChatHistory = (role, content) => {
+    const updateChatHistory = (role=null, content) => {
         setChatHistory(chatHistory => [
             ...chatHistory,
             {
                 role,
                 content,
+                time: new Date().getTime()
             }
         ]);
     };

@@ -1,4 +1,4 @@
-import {assistant, doctor, translator} from "../components/role.jsx";
+import {assistant, doctor, translator} from "./role.jsx";
 
 function roughlyEstimateWordCount(str) {
     const cleanStr = str.replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, "");

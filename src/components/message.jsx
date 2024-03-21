@@ -10,7 +10,7 @@ export default function Message({message}) {
 
     return (
         <div className={`px-2 py-2 mb-4 rounded-xl ${messageClass}`}>
-            <strong>{message.role ? `${message.role}: ` : null}</strong>
+            <strong>{message.role !== 'user' ? `${message.role}: ` : null}</strong>
             {message.text}
             {sentTime ? <div className={`text-sm text-end mt-2`}> {sentTime} </div> : null}
         </div>

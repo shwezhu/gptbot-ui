@@ -1,5 +1,3 @@
-import {message} from "antd";
-
 const chatKey = 'chat_history';
 const sizeKey = 'size';
 const clearSize = 30;
@@ -23,11 +21,8 @@ function saveChatHistory(history) {
     try {
         chatHistoryStr = JSON.stringify(history);
     } catch (e) {
-        message.error({
-            content: "存储聊天记录失败~",
-            duration: 5,
-        }).then();
-        console.error('Error stringifying chat history: ' + e);
+        alert("存储聊天记录失败 meow~")
+        console.error('Error stringify chat history: ' + e);
         return;
     }
 
@@ -36,10 +31,7 @@ function saveChatHistory(history) {
     }
 
     if (chatHistoryStr.length >= Number(localStorage.getItem(sizeKey))) {
-        message.error({
-            content: "历史聊天记录过大, 请删除旧信息, 看右上角喵~",
-            duration: 5,
-        }).then();
+        alert("历史聊天记录过大, 请删除旧信息, 看右上角喵~")
         return;
     }
 
@@ -59,11 +51,7 @@ function clearChatHistory() {
     chatHistory.splice(0, Math.min(clearSize, chatHistory.length));
 
     saveChatHistory(chatHistory);
-
-    message.success({
-        content: "部分旧信息已清除~",
-        duration: 2,
-    }).then();
+    alert('部分聊天记录已清除~')
 }
 
 function setLocalStorageSize() {
