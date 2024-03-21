@@ -31,27 +31,34 @@ export const useChatGPT = ({ fetchPath }) => {
                 body: JSON.stringify({messages}),
                 signal: controller?.current?.signal,
             });
-            const data = await response.json();
+
             setLoading(false)
-
-            if (!response.ok) {
-                // remove the last message
+            if (response.ok) {
+                return await response.json();
+            } else {
                 setMessages((messages) => messages.slice(0, -1));
-                alert("获取信息失败, 请截图反馈: " + data.error);
-                return;
+                if (response.status === 404) {
+                    console.error('Error: Resource not found (404)');
+                    alert("获取信息失败, 请联系截图主人喵~: Error: fetchMessage: Resource not found (404)");
+                    return null;
+                }
+                const data = await response.json();
+                console.error("Error: fetchMessage: " + data.error);
+                alert("获取信息失败, 请联系截图主人喵~: fetchMessage: " + data.error);
+                return null;
             }
-
-            return data;
         } catch (e) {
             setLoading(false)
             // remove the last message
             setMessages((messages) => messages.slice(0, -1));
 
+            // AbortError is expected when the user stops the request.
             if (e.name === 'AbortError') {
-                return
+                return null;
             }
 
-            alert("获取信息失败, 请截图反馈: " + e);
+            console.error("Exception: fetchMessage: " + e);
+            alert("获取信息失败, 请截图反馈: Exception: fetchMessage: " + e);
         }
     }
 
