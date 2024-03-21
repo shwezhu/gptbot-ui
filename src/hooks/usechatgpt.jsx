@@ -104,13 +104,13 @@ export const useChatGPT = ({ fetchPath }) => {
         }
     }
 
-    const updateChatHistory = (role=null, content) => {
+    const updateChatHistory = (role, content) => {
         setChatHistory(chatHistory => [
             ...chatHistory,
             {
                 role,
                 content,
-                time: new Date().getTime()
+                time: role === 'user' ? null : new Date().getTime(),
             }
         ]);
     };
